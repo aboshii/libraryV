@@ -3,10 +3,10 @@ spring:
     show-sql: true
     hibernate:
       #ddlAuto: validate
-      ddlAuto: none
-  sql:
-    init:
-      mode: embedded
+      ddlAuto: create-drop
+  #sql:
+   # init:
+    #  mode: embedded
   h2:
     console:
       enabled: true
