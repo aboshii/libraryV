@@ -1,0 +1,20 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      #ddlAuto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  sql:
+    init:
+      mode: embedded #embedded works only with builtin DB, for MySql use #always
+  h2:
+    console:
+      enabled: true
+      path: /h2console
+  datasource:
+    url: jdbc:h2:mem:test;DATABASE_TO_UPPER=false
+    username: admin
+    password: admin
+  liquibase:
+    contexts: dev

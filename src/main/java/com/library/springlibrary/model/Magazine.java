@@ -2,10 +2,10 @@ package com.library.springlibrary.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.time.MonthDay;
 import java.time.Year;
 
@@ -13,7 +13,7 @@ import java.time.Year;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor(force = true)
-@Entity
+//@Entity
 public class Magazine extends Publication {
     public static final String PUBLICATION_TYPE = "Magazine";
     @Id

@@ -1,9 +1,12 @@
 package com.library.springlibrary;
 
+import com.library.springlibrary.repository.BookRepository;
 import com.library.springlibrary.service.BookService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+
+import java.util.Scanner;
 
 @SpringBootApplication
 public class App {
@@ -17,5 +20,8 @@ public class App {
 				Year.of(1986), "Jaś Wedrowniś", "Jaś", "Fasola", "978-83-61387"));*/
 		//Book bookById = bookService.getBookById(1L);
 		//System.out.println(bookById.toString());
+		BookRepository bookRepository = context.getBean(BookRepository.class);
+		bookRepository.findAll().forEach(System.out::println);
+		new Scanner(System.in).nextLine();
 	}
 }

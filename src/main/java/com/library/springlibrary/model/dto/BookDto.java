@@ -1,13 +1,13 @@
-package com.library.springlibrary.mapper;
+package com.library.springlibrary.model.dto;
 
 import com.library.springlibrary.model.Publication;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.time.Year;
 
 @Getter

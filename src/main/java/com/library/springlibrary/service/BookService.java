@@ -2,7 +2,7 @@ package com.library.springlibrary.service;
 
 import com.library.springlibrary.exceptions.BookNotFoundException;
 import com.library.springlibrary.model.Book;
-import com.library.springlibrary.mapper.BookDto;
+import com.library.springlibrary.model.dto.BookDto;
 import com.library.springlibrary.repository.BookRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

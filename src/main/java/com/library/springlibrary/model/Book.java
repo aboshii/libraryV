@@ -2,7 +2,7 @@ package com.library.springlibrary.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.Year;
 
 @Getter
@@ -16,6 +16,7 @@ public class Book extends Publication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NonNull
+    @Column(name = "isbn")
     private String ISBN;
 
     public Book(@NonNull String title, @NonNull Year publicationYear, @NonNull String publisher,
