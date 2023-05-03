@@ -4,19 +4,13 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
-    <changeSet id="0001-1" author="michalzgiet">
-        <createTable tableName="books">
+    <changeSet id="0002-1" author="michalzgiet">
+        <createTable tableName="users">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="title" type="VARCHAR(255)"/>
-            <column name="publicationYear" type="INT"/>
-            <column name="publisher" type="VARCHAR(255)"/>
-            <column name="authorFirstName" type="VARCHAR(255)"/>
-            <column name="authorLastName" type="VARCHAR(255)"/>
-            <column name="isbn" type="VARCHAR(255)"/>
-            <column name="borrower" type="VARCHAR(6)"/>
-            <column name="dateOfReturn" type="DATE"/>
+            <column name="firstName" type="VARCHAR(26)"/>
+            <column name="lastName" type="VARCHAR(26)"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

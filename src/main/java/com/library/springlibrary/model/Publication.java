@@ -26,7 +26,7 @@ public abstract class Publication {
     @Column(name = "authorLastName")
     private String authorLastName;
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "borrower")
     private User borrower;
     private LocalDateTime dateOfReturn;
 }
