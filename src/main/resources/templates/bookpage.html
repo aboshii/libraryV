@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book page</title>
+</head>
+<body>
+<h1 th:text="'Tytuł: ' + ${title}"></h1>
+<h1 th:text="${publicationYear}"></h1>
+<h1 th:text="${publisher}"></h1>
+<h1 th:text="${authorFirstName}"></h1>
+<h1 th:text="${authorLastName}"></h1>
+<h1 th:text="${ISBN}"></h1>
+</body>
+</html>
