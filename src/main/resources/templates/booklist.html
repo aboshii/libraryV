@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Book list</title>
+    <link rel = "stylesheet" href = "/styles.css">
 </head>
 <body>
-$END$
+<fieldset>
+  <legend>Book list</legend>
+<table>
+  <thead>
+  <tr>
+    <th>Book name</th>
+    <th>Book author</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each = "book : ${books}" class = "booklist">
+  <td th:text = "${book.title}"></td>
+  <td th:text = "${book.authorFirstName} + ' ' + ${book.authorLastName}"></td>
+  </tr>
+  </tbody>
+</table>
+</fieldset>
 </body>
 </html>

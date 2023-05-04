@@ -1,14 +1,15 @@
 package com.library.springlibrary.service;
 
+import lombok.AllArgsConstructor;
 import com.library.springlibrary.exceptions.BookNotFoundException;
 import com.library.springlibrary.model.Book;
 import com.library.springlibrary.model.User;
 import com.library.springlibrary.model.dto.BookDto;
 import com.library.springlibrary.repository.BookRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -42,5 +43,11 @@ public class BookService {
     }
     public Book getBookById(Long id){
         return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
+    }
+    public Book getBookByTitle(String title){
+        return bookRepository.findByTitleIgnoreCase(title).orElseThrow(BookNotFoundException::new);
+    }
+    public ArrayList<Book> getBooks(){
+        return (ArrayList) bookRepository.findAll();
     }
 }

@@ -2,14 +2,15 @@
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Book page</title>
+    <title th:text = "'LibraryV - ' + ${book.title}">LibraryV</title>
 </head>
 <body>
 <h2></h2>
-<h1 th:text="'Tytuł: ' + ${book.title}"></h1>
-<h2 th:text="'Rok publikacji: ' + ${book.publicationYear}"></h2>
-<h2 th:text="'Wydawca: ' + ${book.publisher}"></h2>
-<h2 th:text="'Autor: ' + ${book.authorFirstName} + ' ' + ${book.authorLastName}"></h2>
+<h1 th:text="'Title: ' + ${book.title}"></h1>
+<h2 th:text="'Publication year: ' + ${book.publicationYear}"></h2>
+<h2 th:text="'Publisher: ' + ${book.publisher}"></h2>
+<h2 th:text="'Author: ' + ${book.authorFirstName} + ' ' + ${book.authorLastName}"></h2>
 <h2 th:text="'ISBN: ' + ${book.ISBN}"></h2>
+<h2 th:if = "${borrowerFirstName} || ${borrowerLastName}" th:text="'Aktualnie wypożyczone przez: ' + ${borrowerFirstName} + ' ' + ${borrowerLastName}"></h2>
 </body>
 </html>

@@ -21,18 +21,32 @@ public class BookController {
         Book book = bookService.getBookById(idN);
         System.out.println("padu");
         model.addAttribute("book", book);
+        if (book.getBorrower() != null) {
+            model.addAttribute("borrowerFirstName", book.getBorrower().getFirstName());
+            model.addAttribute("borrowerLastName", book.getBorrower().getLastName());
+        }
         return "bookpage.html";
     }
 
-//    @PostMapping("/addbook")
-//    @ResponseBody
-//    void addNewBook(@RequestParam String title,
-//                    @RequestParam int publicationYear,
-//                    @RequestParam String publisher,
-//                    @RequestParam String authorFirstName,
-//                    @RequestParam String authorLastName,
-//                    @RequestParam String ISBN){
-//        bookService.addBook(new BookDto(title,
-//                Year.of(publicationYear), publisher, authorFirstName, authorLastName, ISBN));
-//    }
+    @GetMapping("books")
+    String getBookList(Model model){
+        model.addAttribute("books", bookService.getBooks());
+        return "booklist.html";
+    }
+
+    @GetMapping("/addbook")
+    String addNewBook(){
+        return "addbook.html";
+    }
+    @PostMapping("/addbookpost")
+    @ResponseBody
+    void addNewBook(@RequestParam String title,
+                    @RequestParam int publicationYear,
+                    @RequestParam String publisher,
+                    @RequestParam String authorFirstName,
+                    @RequestParam String authorLastName,
+                    @RequestParam String ISBN){
+        bookService.addBook(new BookDto(title,
+                Year.of(publicationYear), publisher, authorFirstName, authorLastName, ISBN));
+    }
 }
