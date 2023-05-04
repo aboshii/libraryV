@@ -20,7 +20,7 @@ public class User {
     private String firstName;
     @NonNull
     private String lastName;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "borrower", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "borrower", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<Book> borrowedBooks = new HashSet<>();
 
 }

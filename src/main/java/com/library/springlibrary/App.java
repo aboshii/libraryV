@@ -1,5 +1,6 @@
 package com.library.springlibrary;
 
+import com.library.springlibrary.controller.BookController;
 import com.library.springlibrary.model.Publication;
 import com.library.springlibrary.repository.BookRepository;
 import com.library.springlibrary.repository.UserRepository;
@@ -8,6 +9,7 @@ import com.library.springlibrary.service.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.util.Scanner;
 
@@ -18,6 +20,7 @@ public class App {
 		ConfigurableApplicationContext context = SpringApplication.run(App.class, args);
 		BookService bookService = context.getBean(BookService.class);
 		UserService userService = context.getBean(UserService.class);
+		BookController bookController = context.getBean(BookController.class);
 /*		bookService.addBook(new BookDto("W pustyni i w puszczy",
 				Year.of(2014), "Znak Emotikon", "Henryk", "Sienkiewicz", "978-83-240-2959-4"));
 		bookService.addBook(new BookDto("Przygody Jasia Fasoli",

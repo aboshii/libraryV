@@ -1,14 +1,26 @@
-package com.library.springlibrary;
+package com.library.springlibrary.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 class HelloController {
-    @RequestMapping("/")
+    @GetMapping("/welcome")
     @ResponseBody
-    String home() {
-        return "Hello World!";
+    String home(@RequestParam
+                        (value = "name", required = false, defaultValue = "stranger") String name,
+    @RequestHeader(name = "User-Agent") String userAgent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Welcome in LibraryV ");
+        if (name != null) {
+            sb.append(name + System.getProperty("line.separator"));
+        }
+        sb.append("Używasz przeglądarki: \n" + userAgent);
+        System.out.println(sb.toString());
+        return sb.toString();
     }
+
 }
