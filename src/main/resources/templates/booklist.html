@@ -13,12 +13,14 @@
   <tr>
     <th>Book title</th>
     <th>Book author</th>
+    <th>Book page</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each = "book : ${books}" th:object = "${book}" class = "booklist">
   <td th:utext = "*{title}"></td>
   <td th:text = "|*{authorFirstName} *{authorLastName}|"></td>
+  <td><a th:href="'book?id=' + *{id}">LINK</a></td>
   </tr>
   </tbody>
 </table>

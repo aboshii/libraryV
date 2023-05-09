@@ -6,9 +6,6 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-<form>
-
-</form>
 <div class="bookpage_book_details">
 <p><h2 th:text="${book.title}"></h2></p>
     <h3 th:text="${book.authorFirstName} + ' ' + ${book.authorLastName}"></h3>
@@ -20,21 +17,25 @@
 <div class="bookpage_opinion_form">
 <form class="set_comment" method="post" action='/setcommentpost'>
     <label><p>Give us your opinion!</p></label>
-    <textarea name=username placeholder="Username" rows="1"></textarea>
-    <textarea name=opinion placeholder="Opinion placeholder" rows="5"></textarea>
-    <button type="submit">Submit</button>
+    <textarea name="username" placeholder="Username" rows="1"></textarea>
+    <div>
+    <textarea name="opinion" placeholder="Opinion placeholder" rows="5"></textarea>
+    <button class="button-53" type="submit">Submit</button>
+    </div>
 </form>
 </div>
 <div>
-<fieldset>
+<fieldset class="commentary_list_field">
     <legend>Comments</legend>
     <div th:each = "commentary : ${book.commentaryList}"}>
-        <fieldset>
+        <fieldset class="commentary_field">
             <legend th:utext="${commentary.username}">username</legend>
-            <a th:utext="${commentary.description}"></a>
+            <p class="commentary_date" th:text="${#temporals.format(commentary.dateAdded, 'dd-MM-yyyy HH:mm')}"></p>
+            <pre th:utext="${commentary.description}"></pre>
         </fieldset>
     </div>
 </fieldset>
 </div>
 </body>
 </html>
+<!--  class="commentary_date" -->

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.time.Year;
@@ -21,7 +22,6 @@ public class BookController {
     String book(@RequestParam(required = false, defaultValue = "1") String id, Model model) {
         Long idN = Long.parseLong(id);
         Book book = bookService.getBookById(idN);
-        System.out.println("padu");
         model.addAttribute("book", book);
         if (book.getBorrower() != null) {
             model.addAttribute("borrowerFirstName", book.getBorrower().getFirstName());
@@ -30,7 +30,7 @@ public class BookController {
         return "bookpage.html";
     }
 
-    @GetMapping("books")
+    @GetMapping("/books")
     String getBookList(Model model){
         model.addAttribute("books", bookService.getBooks());
         return "booklist.html";
@@ -49,7 +49,7 @@ public class BookController {
                     @RequestParam String ISBN){
         bookService.addBook(new BookDto(title,
                 Year.of(publicationYear), publisher, authorFirstName, authorLastName, ISBN));
-        return "index.html";
+        return "booklist.html";
     }
     @PostMapping("/setcommentpost")
     String addNewCommentary(@RequestHeader(name = "Referer") String referer,
@@ -58,11 +58,13 @@ public class BookController {
                             HttpServletResponse response,
                             Model model) throws IOException {
         long id = Long.parseLong(UrlHandler.getParameterFromReferer(referer, "id"));
-        System.out.println("adding new commentary for book with id: " + id);
-        System.out.println(bookService.getBookById(id));
-        System.out.println(opinion);
         bookService.addCommentary(id, username, opinion);
-            response.sendRedirect("/book?id=" + id);
-        return book(Long.toString(id), model);
+        return UriComponentsBuilder
+                .fromPath("redirect:book")
+                .queryParam("id", id)
+                .build()
+                .toString();
+        //response.sendRedirect("/book?id=" + id);
+        //return book(Long.toString(id), model);
     }
 }

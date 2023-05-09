@@ -4,14 +4,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
-    <changeSet id="0003-1" author="michalzgiet">
-        <createTable tableName="publication_commentaries">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="user" type="VARCHAR(255)"/>
-            <column name="description" type="VARCHAR(255)"/>
-            <column name="dateAdded" type="DATE"/>
-        </createTable>
+    <changeSet id="0004-1" author="michalzgiet">
+        <modifyDataType tableName="publication_commentaries" columnName="description" newDataType="VARCHAR(3000)"/>
+        <modifyDataType tableName="publication_commentaries" columnName="username" newDataType="VARCHAR(50)"/>
     </changeSet>
 </databaseChangeLog>
