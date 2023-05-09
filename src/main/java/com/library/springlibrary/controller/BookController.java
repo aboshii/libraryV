@@ -2,6 +2,7 @@ package com.library.springlibrary.controller;
 
 import com.library.springlibrary.model.Book;
 import com.library.springlibrary.model.dto.BookDto;
+import com.library.springlibrary.model.dto.PublicationCommentaryDto;
 import com.library.springlibrary.service.BookService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -53,12 +54,9 @@ public class BookController {
     }
     @PostMapping("/setcommentpost")
     String addNewCommentary(@RequestHeader(name = "Referer") String referer,
-                            @RequestParam String username,
-                            @RequestParam String opinion,
-                            HttpServletResponse response,
-                            Model model) throws IOException {
+                            PublicationCommentaryDto publicationCommentaryDto) {
         long id = Long.parseLong(UrlHandler.getParameterFromReferer(referer, "id"));
-        bookService.addCommentary(id, username, opinion);
+        bookService.addCommentary(id, publicationCommentaryDto.getUsername(), publicationCommentaryDto.getDescription());
         return UriComponentsBuilder
                 .fromPath("redirect:book")
                 .queryParam("id", id)

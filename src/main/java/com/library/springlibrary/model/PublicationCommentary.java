@@ -14,11 +14,11 @@ public class PublicationCommentary {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    Long id;
-    String username;
+    private Long id;
+    private String username;
     @NonNull
-    String description;
-    LocalDateTime dateAdded;
+    private String description;
+    private LocalDateTime dateAdded;
 
     public PublicationCommentary(String username, @NonNull String description) {
         this.username = username;
