@@ -7,18 +7,18 @@
 </head>
 <body>
 <fieldset>
-  <legend>Book list</legend>
+  <legend>Books list</legend>
 <table>
   <thead>
   <tr>
-    <th>Book name</th>
+    <th>Book title</th>
     <th>Book author</th>
   </tr>
   </thead>
   <tbody>
-  <tr th:each = "book : ${books}" class = "booklist">
-  <td th:text = "${book.title}"></td>
-  <td th:text = "${book.authorFirstName} + ' ' + ${book.authorLastName}"></td>
+  <tr th:each = "book : ${books}" th:object = "${book}" class = "booklist">
+  <td th:utext = "*{title}"></td>
+  <td th:text = "|*{authorFirstName} *{authorLastName}|"></td>
   </tr>
   </tbody>
 </table>

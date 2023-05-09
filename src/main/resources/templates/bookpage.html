@@ -2,15 +2,39 @@
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text = "'LibraryV - ' + ${book.title}">LibraryV</title>
+    <title th:text="'LibraryV - ' + ${book.title}">LibraryV</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-<h2></h2>
-<h1 th:text="'Title: ' + ${book.title}"></h1>
-<h2 th:text="'Publication year: ' + ${book.publicationYear}"></h2>
-<h2 th:text="'Publisher: ' + ${book.publisher}"></h2>
-<h2 th:text="'Author: ' + ${book.authorFirstName} + ' ' + ${book.authorLastName}"></h2>
-<h2 th:text="'ISBN: ' + ${book.ISBN}"></h2>
-<h2 th:if = "${borrowerFirstName} || ${borrowerLastName}" th:text="'Aktualnie wypożyczone przez: ' + ${borrowerFirstName} + ' ' + ${borrowerLastName}"></h2>
+<form>
+
+</form>
+<div class="bookpage_book_details">
+<p><h2 th:text="${book.title}"></h2></p>
+    <h3 th:text="${book.authorFirstName} + ' ' + ${book.authorLastName}"></h3>
+    <p><h3 th:text="${book.publisher} + ', ' + ${book.publicationYear}"></h3></p>
+<h3 th:text="'ISBN: ' + ${book.ISBN}"></h3>
+<h3 th:if="${borrowerFirstName} or ${borrowerLastName}"
+    th:text="'Aktualnie wypożyczone przez: ' + ${borrowerFirstName} + ' ' + ${borrowerLastName}"></h3>
+</div>
+<div class="bookpage_opinion_form">
+<form class="set_comment" method="post" action='/setcommentpost'>
+    <label><p>Give us your opinion!</p></label>
+    <textarea name=username placeholder="Username" rows="1"></textarea>
+    <textarea name=opinion placeholder="Opinion placeholder" rows="5"></textarea>
+    <button type="submit">Submit</button>
+</form>
+</div>
+<div>
+<fieldset>
+    <legend>Comments</legend>
+    <div th:each = "commentary : ${book.commentaryList}"}>
+        <fieldset>
+            <legend th:utext="${commentary.username}">username</legend>
+            <a th:utext="${commentary.description}"></a>
+        </fieldset>
+    </div>
+</fieldset>
+</div>
 </body>
 </html>

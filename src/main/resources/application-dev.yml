@@ -2,7 +2,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      #ddlAuto: update
+      ddlAuto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   sql:

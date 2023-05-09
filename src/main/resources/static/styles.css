@@ -1,7 +1,39 @@
-header {
-    margin: auto;
-    max-width: 600px;
-    text-align: center;
+body {
+    background: linear-gradient(rgba(114, 98, 55, 0.8), rgba(205, 229, 145, 0.49));
+    padding: 0.2rem;
+}
+.bookpage_opinion_form{
+    font-size: small;
+}
+.bookpage_book_details {
+    font-family: "Comic Sans MS", emoji;
+    box-sizing: border-box;
+}
+.bookpage_book_details > h3 {
+    color: #0b4080;
+    margin-left: 25px;
+    height: 2px;
+}
+.bookpage_book_details > h2 {
+    color: #193659;
+    margin-left: 15px;
+    height: 8px;
+}
+.set_comment {
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+.set_comment > form {
+    margin-bottom: 2px;
+}
+.set_comment > textarea {
+    display: block;
+    max-width: 200px;
+    max-height: 50px;
+}
+.addbook_form > input {
+    display: block;
+    max-width: 200px;
 }
 img {
     max-width: 100%;
@@ -17,6 +49,9 @@ table, th, td, tr {
 }
 .booklist {
     text-align: center;
-    color: white;
-    background-color: black;
+    color: black;
+    background-color: white;
+}
+div > label, button {
+    display: block;
 }
