@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Book list</title>
-    <link rel = "stylesheet" href = "/styles.css">
+    <link rel = "stylesheet" th:href = "@{/styles.css}">
 </head>
 <body>
 <fieldset>
@@ -20,7 +20,7 @@
   <tr th:each = "book : ${books}" th:object = "${book}" class = "booklist">
   <td th:utext = "*{title}"></td>
   <td th:text = "|*{authorFirstName} *{authorLastName}|"></td>
-  <td><a th:href="'book?id=' + *{id}">LINK</a></td>
+  <td><a th:href="@{'book?id=' + *{id}}">LINK</a></td>
   </tr>
   </tbody>
 </table>

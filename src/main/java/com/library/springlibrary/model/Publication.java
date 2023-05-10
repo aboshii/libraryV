@@ -36,5 +36,5 @@ public abstract class Publication {
     private LocalDateTime dateOfReturn;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "publication_id")
-    private List<PublicationCommentary> commentaryList = new ArrayList<>();
+    private List<PublicationComment> commentaryList = new ArrayList<>();
 }

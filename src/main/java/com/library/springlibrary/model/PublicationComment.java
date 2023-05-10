@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(force = true)
 @Entity
 @Table(name = "publication_commentaries")
-public class PublicationCommentary {
+public class PublicationComment {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class PublicationCommentary {
     private String description;
     private LocalDateTime dateAdded;
 
-    public PublicationCommentary(String username, @NonNull String description) {
+    public PublicationComment(String username, @NonNull String description) {
         this.username = username;
         this.description = description;
         this.dateAdded = LocalDateTime.now();

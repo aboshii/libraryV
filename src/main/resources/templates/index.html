@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>LibraryV</title>
-    <link rel = "stylesheet" href = "/styles.css">
+    <link rel = "stylesheet" th:href = "@{/styles.css}">
 </head>
 <header>
     <h1>Hello LibraryV</h1>
-    <a href ="/books"><img src = "/library1.jpg" alt = "zdjęcie biblioteki" ></a>
-    <a href = "/addbook"><button type = "submit">Add new book</button></a>
+    <a th:href = "@{/books}"><img th:src = "@{/library1.jpg}" alt = "zdjęcie biblioteki" ></a>
+    <a th:href = "@{/addbook}"><button type = "submit">Add new book</button></a>
 </header>
 <body>
 </body>

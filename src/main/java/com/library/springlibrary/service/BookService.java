@@ -1,6 +1,6 @@
 package com.library.springlibrary.service;
 
-import com.library.springlibrary.model.PublicationCommentary;
+import com.library.springlibrary.model.PublicationComment;
 import lombok.AllArgsConstructor;
 import com.library.springlibrary.exceptions.BookNotFoundException;
 import com.library.springlibrary.model.Book;
@@ -42,7 +42,7 @@ public class BookService {
     @Transactional
     public void addCommentary(Long id, String username, String opinion){
         Book book = getBookById(id);
-        book.getCommentaryList().add(new PublicationCommentary(username, opinion));
+        book.getCommentaryList().add(new PublicationComment(username, opinion));
         bookRepository.save(book);
     }
 

@@ -2,4 +2,6 @@ spring:
   liquibase:
     change-log: classpath:db/master.xml
 server:
+  servlet:
+    context-path: /library
   port: 8080

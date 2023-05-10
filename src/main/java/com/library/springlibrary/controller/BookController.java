@@ -1,10 +1,10 @@
 package com.library.springlibrary.controller;
 
 import com.library.springlibrary.model.Book;
+import com.library.springlibrary.model.PublicationComment;
 import com.library.springlibrary.model.dto.BookDto;
-import com.library.springlibrary.model.dto.PublicationCommentaryDto;
+import com.library.springlibrary.model.dto.PublicationCommentDto;
 import com.library.springlibrary.service.BookService;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +24,7 @@ public class BookController {
         Long idN = Long.parseLong(id);
         Book book = bookService.getBookById(idN);
         model.addAttribute("book", book);
+        model.addAttribute("comment", new PublicationComment());
         if (book.getBorrower() != null) {
             model.addAttribute("borrowerFirstName", book.getBorrower().getFirstName());
             model.addAttribute("borrowerLastName", book.getBorrower().getLastName());
@@ -54,9 +55,9 @@ public class BookController {
     }
     @PostMapping("/setcommentpost")
     String addNewCommentary(@RequestHeader(name = "Referer") String referer,
-                            PublicationCommentaryDto publicationCommentaryDto) {
+                            PublicationCommentDto publicationCommentDto) {
         long id = Long.parseLong(UrlHandler.getParameterFromReferer(referer, "id"));
-        bookService.addCommentary(id, publicationCommentaryDto.getUsername(), publicationCommentaryDto.getDescription());
+        bookService.addCommentary(id, publicationCommentDto.getUsername(), publicationCommentDto.getDescription());
         return UriComponentsBuilder
                 .fromPath("redirect:book")
                 .queryParam("id", id)
