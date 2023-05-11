@@ -125,12 +125,23 @@ table, th, td, tr {
     border-collapse: collapse;
 }
 
-.booklist {
-    text-align: center;
-    color: black;
-    background-color: white;
+.odd-row {
+    background-color: #8da17c;
 }
 
+.booklist .available .notavailable {
+    text-align: center;
+    background-color: white;
+}
+.booklist {
+    color: black;
+}
+.available {
+    color: #057005;
+}
+.notavailable {
+    color: #5b1f1f;
+}
 div > label, button {
     display: block;
 }

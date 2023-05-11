@@ -18,7 +18,11 @@
         </thead>
         <tbody>
         <div th:remove="all-but-first">
-            <tr th:each="book : ${books}" th:object="${book}" class="booklist">
+            <tr th:each="book, status : ${books}"
+                th:object="${book}"
+                th:class="|*{borrower == null ? 'available' : 'notavailable'}|"
+                th:classappend="|${status.odd ? 'odd-row' : 'even-row'}|"
+                class="booklist">
                 <td th:utext="*{title}">Title</td>
                 <td th:text="|*{authorFirstName} *{authorLastName}|">Author</td>
                 <td><a th:href="@{'book?id=' + *{id}}" href="#">LINK</a></td>
