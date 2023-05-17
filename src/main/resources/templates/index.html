@@ -5,16 +5,17 @@
     <title>LibraryV</title>
     <link rel = "stylesheet" th:href = "@{/styles.css}" href="../static/styles.css">
 </head>
-<header>
+<header th:insert="~{fragments :: common-header}">
     <h1>Hello LibraryV</h1>
-    <a th:href = "@{/books}">
-        <img th:src = "@{/library1.jpg}"
-             src="../static/library1.jpg" alt = "zdjęcie biblioteki" >
-    </a>
-    <a th:href = "@{/addbook}">
-        <button type = "submit">Add new book</button>
-    </a>
+    <h2 th:text="|It's your ${@visitCounter.visitCount} visit here|"> </h2>
 </header>
 <body>
+<a th:href = "@{/books}">
+    <img class="library_img" th:src = "@{/library1.jpg}"
+         src="../static/library1.jpg" alt = "library photo">
+</a>
+<a th:href = "@{/addbook}">
+    <button type = "submit">Add new book</button>
+</a>
 </body>
 </html>

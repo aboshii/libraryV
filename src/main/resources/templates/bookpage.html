@@ -6,6 +6,8 @@
     <link rel="stylesheet" th:href="@{/styles.css}" href="../static/styles.css">
 </head>
 <body>
+<header th:replace="~{fragments :: common-header}">
+</header>
 <div class="bookpage_book_details">
 <p><h2 th:text="${book.title}">Title</h2></p>
     <h3 th:text="${book.authorFirstName} + ' ' + ${book.authorLastName}">Author name</h3>

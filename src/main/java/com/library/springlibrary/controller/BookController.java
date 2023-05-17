@@ -1,23 +1,30 @@
 package com.library.springlibrary.controller;
 
+import java.time.Year;
 import com.library.springlibrary.model.Book;
 import com.library.springlibrary.model.PublicationComment;
 import com.library.springlibrary.model.dto.BookDto;
 import com.library.springlibrary.model.dto.PublicationCommentDto;
 import com.library.springlibrary.service.BookService;
+import com.library.springlibrary.service.VisitCounter;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
-import java.time.Year;
-
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Controller
 public class BookController {
     private final BookService bookService;
+    private VisitCounter visitCounter;
+
+    @GetMapping("/")
+    String mainPage(){
+        visitCounter.visitCounterCountUp();
+        return "index";
+    }
 
     @GetMapping("/book")
     String book(@RequestParam(required = false, defaultValue = "1") String id, Model model) {
@@ -51,7 +58,7 @@ public class BookController {
                     @RequestParam String ISBN){
         bookService.addBook(new BookDto(title,
                 Year.of(publicationYear), publisher, authorFirstName, authorLastName, ISBN));
-        return "booklist.html";
+        return "redirect:books";
     }
     @PostMapping("/setcommentpost")
     String addNewCommentary(@RequestHeader(name = "Referer") String referer,

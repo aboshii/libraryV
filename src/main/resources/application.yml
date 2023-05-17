@@ -4,4 +4,8 @@ spring:
 server:
   servlet:
     context-path: /library
+    session:
+      timeout: 1440
+      cookie:
+        max-age: 86400
   port: 8080

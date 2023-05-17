@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <header class="main_header" th:fragment="common-header">
+    <div>
+        <a th:href="@{/}">
+            <img class="logo_img" th:src="@{/libraryVlogo.png}"
+                 src="../static/libraryVlogo.png" alt = "libraryV logo">
+        </a>
+    </div>
+  </header>
+</body>
+</html>
