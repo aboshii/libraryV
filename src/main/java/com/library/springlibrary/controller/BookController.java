@@ -8,7 +8,6 @@ import com.library.springlibrary.model.dto.PublicationCommentDto;
 import com.library.springlibrary.service.BookService;
 import com.library.springlibrary.service.VisitCounter;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -26,8 +25,8 @@ public class BookController {
         return "index";
     }
 
-    @GetMapping("/book")
-    String book(@RequestParam(required = false, defaultValue = "1") String id, Model model) {
+    @GetMapping("/books/{id}")
+    String book(@PathVariable(required = false, name = "id") String id, Model model) {
         Long idN = Long.parseLong(id);
         Book book = bookService.getBookById(idN);
         model.addAttribute("book", book);
@@ -63,11 +62,15 @@ public class BookController {
     @PostMapping("/setcommentpost")
     String addNewCommentary(@RequestHeader(name = "Referer") String referer,
                             PublicationCommentDto publicationCommentDto) {
-        long id = Long.parseLong(UrlHandler.getParameterFromReferer(referer, "id"));
-        bookService.addCommentary(id, publicationCommentDto.getUsername(), publicationCommentDto.getDescription());
+        long id = Long.parseLong(UrlHandler.getLastUriSegment(referer, "id"));
+        if (!publicationCommentDto.getUsername().equals("") && !publicationCommentDto.getDescription().equals("")) {
+            bookService.addCommentary(id, publicationCommentDto.getUsername(), publicationCommentDto.getDescription());
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
         return UriComponentsBuilder
-                .fromPath("redirect:book")
-                .queryParam("id", id)
+                .fromPath("redirect:books/" + id)
                 .build()
                 .toString();
         //response.sendRedirect("/book?id=" + id);

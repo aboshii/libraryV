@@ -1,10 +1,8 @@
 package com.library.springlibrary.model;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
-
 import jakarta.persistence.*;
-import org.hibernate.engine.internal.Cascade;
-
 import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.ArrayList;
@@ -36,5 +34,6 @@ public abstract class Publication {
     private LocalDateTime dateOfReturn;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "publication_id")
+    @JsonIgnore
     private List<PublicationComment> commentaryList = new ArrayList<>();
 }

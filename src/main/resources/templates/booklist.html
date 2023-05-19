@@ -2,7 +2,7 @@
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Book list</title>
+    <title th:text="'LibraryV - book list'">LibraryV</title>
     <link rel="stylesheet" th:href="@{/styles.css}" href="../static/styles.css">
 </head>
 <body>
@@ -27,7 +27,7 @@
                 class="booklist">
                 <td th:utext="*{title}">Title</td>
                 <td th:text="|*{authorFirstName} *{authorLastName}|">Author</td>
-                <td><a th:href="@{'book?id=' + *{id}}" href="#">LINK</a></td>
+                <td><a th:href="@{'books/' + *{id}}" href="#">LINK</a></td>
             <tr th:remove="all" class="booklist">
                 <td>Title</td>
                 <td>Author</td>

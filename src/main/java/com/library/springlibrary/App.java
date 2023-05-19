@@ -26,6 +26,7 @@ public class App {
 		BookRepository bookRepository = context.getBean(BookRepository.class);
 		UserRepository userRepository = context.getBean(UserRepository.class);
 		bookService.borrowBook(bookRepository.findById(1L), userRepository.findById(1L));
+		bookService.borrowBook(bookRepository.findById(2L), userRepository.findById(1L));
 		System.out.println(userService.getUserBooksByUserId(2L));
 		new Scanner(System.in).nextLine();
 	}

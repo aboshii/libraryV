@@ -5,13 +5,19 @@
     <title>Title</title>
 </head>
 <body>
-  <header class="main_header" th:fragment="common-header">
-    <div>
-        <a th:href="@{/}">
-            <img class="logo_img" th:src="@{/libraryVlogo.png}"
-                 src="../static/libraryVlogo.png" alt = "libraryV logo">
-        </a>
-    </div>
-  </header>
+<header class="main_header" th:fragment="common-header">
+    <div id="header_outer_div">
+        <div class="header_inner_div">
+            <a th:href="@{/}">
+                <img class="logo_img" th:src="@{/libraryVlogo.png}"
+                     src="../static/libraryVlogo.png" alt="libraryV logo">
+            </a>
+        </div>
+        <div class="header_inner_div">
+            <a th:href="@{/addbook}">
+                <button class="header_button" type="submit">Add new book</button>
+            </a>
+        </div>
+</header>
 </body>
 </html>

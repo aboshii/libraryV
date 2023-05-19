@@ -1,5 +1,6 @@
 package com.library.springlibrary.model.dto;
 
+import com.library.springlibrary.model.Book;
 import com.library.springlibrary.model.Publication;
 import lombok.Getter;
 import lombok.NonNull;
@@ -24,5 +25,9 @@ public class BookDto extends Publication {
                     String authorFirstName, String lastFirstName, @NonNull String ISBN) {
             super(title, publicationYear, publisher, authorFirstName, lastFirstName);
             this.ISBN = ISBN;
+        }
+        public BookDto(Book book){
+            super(book.getTitle(), book.getPublicationYear(), book.getPublisher(), book.getAuthorFirstName(), book.getAuthorLastName());
+            this.ISBN = book.getISBN();
         }
     }

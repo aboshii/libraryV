@@ -1,5 +1,7 @@
 package com.library.springlibrary.service;
 
+import com.library.springlibrary.exceptions.BookNotFoundException;
+import com.library.springlibrary.exceptions.UserNotFoundException;
 import com.library.springlibrary.model.Book;
 import com.library.springlibrary.model.User;
 import com.library.springlibrary.repository.UserRepository;
@@ -7,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
 
@@ -25,5 +28,13 @@ public class UserService {
         } else {
             return Optional.empty();
         }
+    }
+    public User getUserById(Long id){
+        System.out.println("getuserlog");
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    }
+    public ArrayList<User> getUsers(){
+        System.out.println("getuserslog");
+        return (ArrayList) userRepository.findAll();
     }
 }

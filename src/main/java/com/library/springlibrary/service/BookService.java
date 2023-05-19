@@ -56,6 +56,7 @@ public class BookService {
         return bookRepository.findByTitleIgnoreCase(title).orElseThrow(BookNotFoundException::new);
     }
     public ArrayList<Book> getBooks(){
+        System.out.println("getbookslog");
         return (ArrayList) bookRepository.findAll();
     }
 }
