@@ -34,6 +34,5 @@ public abstract class Publication {
     private LocalDateTime dateOfReturn;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "publication_id")
-    @JsonIgnore
     private List<PublicationComment> commentaryList = new ArrayList<>();
 }

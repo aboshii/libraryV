@@ -1,7 +1,6 @@
 package com.library.springlibrary;
 
 import com.library.springlibrary.controller.BookController;
-import com.library.springlibrary.model.Publication;
 import com.library.springlibrary.repository.BookRepository;
 import com.library.springlibrary.repository.UserRepository;
 import com.library.springlibrary.service.BookService;
@@ -10,7 +9,6 @@ import com.library.springlibrary.service.VisitCounter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.util.Scanner;
 

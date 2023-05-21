@@ -1,6 +1,7 @@
 package com.library.springlibrary.service;
 
 import com.library.springlibrary.model.PublicationComment;
+import com.library.springlibrary.model.dto.mapper.BookDtoMapper;
 import lombok.AllArgsConstructor;
 import com.library.springlibrary.exceptions.BookNotFoundException;
 import com.library.springlibrary.model.Book;
@@ -16,23 +17,24 @@ import java.util.Optional;
 @AllArgsConstructor
 @Service
 public class BookService {
-    private final BookRepository bookRepository;
+    private BookRepository bookRepository;
+    private BookDtoMapper bookDtoMapper;
 
     @Transactional
     public void addBook(BookDto bookDto) {
-            Book book = new Book(
-                    bookDto.getTitle(),
-                    bookDto.getPublicationYear(),
-                    bookDto.getPublisher(),
-                    bookDto.getAuthorFirstName(),
-                    bookDto.getAuthorLastName(),
-                    bookDto.getISBN());
-            bookRepository.save(book);
+        Book book = new Book(
+                bookDto.getTitle(),
+                bookDto.getPublicationYear(),
+                bookDto.getPublisher(),
+                bookDto.getAuthorFirstName(),
+                bookDto.getAuthorLastName(),
+                bookDto.getISBN());
+        bookRepository.save(book);
     }
 
     @Transactional
-    public void borrowBook(Optional<Book> optionalBook, Optional<User> optionalUser){
-        if(optionalBook.isPresent() && optionalUser.isPresent()){
+    public void borrowBook(Optional<Book> optionalBook, Optional<User> optionalUser) {
+        if (optionalBook.isPresent() && optionalUser.isPresent()) {
             Book book = optionalBook.get();
             book.setBorrower(optionalUser.get());
             bookRepository.save(book);
@@ -40,7 +42,7 @@ public class BookService {
     }
 
     @Transactional
-    public void addCommentary(Long id, String username, String opinion){
+    public void addCommentary(Long id, String username, String opinion) {
         Book book = getBookById(id);
         book.getCommentaryList().add(new PublicationComment(username, opinion));
         bookRepository.save(book);
@@ -49,13 +51,19 @@ public class BookService {
     public void removeBookById(Long id) {
         bookRepository.deleteById(id);
     }
-    public Book getBookById(Long id){
+
+    public Book getBookById(Long id) throws BookNotFoundException {
         return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
     }
-    public Book getBookByTitle(String title){
-        return bookRepository.findByTitleIgnoreCase(title).orElseThrow(BookNotFoundException::new);
+
+    public BookDto getBookByTitle(String title) {
+        return bookDtoMapper.map(
+                bookRepository
+                        .findByTitleIgnoreCase(title)
+                        .orElseThrow(BookNotFoundException::new));
     }
-    public ArrayList<Book> getBooks(){
+
+    public ArrayList<Book> getBooks() {
         System.out.println("getbookslog");
         return (ArrayList) bookRepository.findAll();
     }

@@ -1,10 +1,10 @@
 package com.library.springlibrary.controller;
 
 import java.time.Year;
-import com.library.springlibrary.model.Book;
 import com.library.springlibrary.model.PublicationComment;
 import com.library.springlibrary.model.dto.BookDto;
 import com.library.springlibrary.model.dto.PublicationCommentDto;
+import com.library.springlibrary.model.dto.mapper.BookDtoMapper;
 import com.library.springlibrary.service.BookService;
 import com.library.springlibrary.service.VisitCounter;
 import lombok.AllArgsConstructor;
@@ -16,8 +16,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 @AllArgsConstructor
 @Controller
 public class BookController {
-    private final BookService bookService;
+    private BookService bookService;
     private VisitCounter visitCounter;
+    private BookDtoMapper bookDtoMapper;
 
     @GetMapping("/")
     String mainPage(){
@@ -28,12 +29,11 @@ public class BookController {
     @GetMapping("/books/{id}")
     String book(@PathVariable(required = false, name = "id") String id, Model model) {
         Long idN = Long.parseLong(id);
-        Book book = bookService.getBookById(idN);
+        BookDto book = bookDtoMapper.map(bookService.getBookById(idN));
         model.addAttribute("book", book);
         model.addAttribute("comment", new PublicationComment());
-        if (book.getBorrower() != null) {
-            model.addAttribute("borrowerFirstName", book.getBorrower().getFirstName());
-            model.addAttribute("borrowerLastName", book.getBorrower().getLastName());
+        if (book.getBorrowerData() != null) {
+            model.addAttribute("borrowerName", book.getBorrowerData());
         }
         return "bookpage.html";
     }

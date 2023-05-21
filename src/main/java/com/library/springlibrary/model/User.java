@@ -26,6 +26,9 @@ public class User {
     @NonNull
     private String lastName;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "borrower", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    @JsonManagedReference
     private Set<Book> borrowedBooks = new HashSet<>();
+
+    public String getUserData() {
+        return getFirstName() + " " + getLastName();
+    }
 }

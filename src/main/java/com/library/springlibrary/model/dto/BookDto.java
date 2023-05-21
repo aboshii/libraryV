@@ -1,33 +1,30 @@
 package com.library.springlibrary.model.dto;
 
 import com.library.springlibrary.model.Book;
-import com.library.springlibrary.model.Publication;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import com.library.springlibrary.model.PublicationComment;
+import lombok.*;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import java.time.Year;
+import java.util.List;
 
 @Getter
 @Setter
-public class BookDto extends Publication {
-        public static final String PUBLICATION_TYPE = "Book";
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
-        @NonNull
-        private String ISBN;
+@NoArgsConstructor(force = true)
+@RequiredArgsConstructor
+public class BookDto {
+    @NonNull
+    private String title;
+    @NonNull
+    private Year publicationYear;
+    @NonNull
+    private String publisher;
+    @NonNull
+    private String authorFirstName;
+    @NonNull
+    private String authorLastName;
+    private String borrowerData;
+    @NonNull
+    private String ISBN;
+    private List<PublicationComment> commentaryList;
 
-        public BookDto(@NonNull String title, @NonNull Year publicationYear, @NonNull String publisher,
-                    String authorFirstName, String lastFirstName, @NonNull String ISBN) {
-            super(title, publicationYear, publisher, authorFirstName, lastFirstName);
-            this.ISBN = ISBN;
-        }
-        public BookDto(Book book){
-            super(book.getTitle(), book.getPublicationYear(), book.getPublisher(), book.getAuthorFirstName(), book.getAuthorLastName());
-            this.ISBN = book.getISBN();
-        }
-    }
+}

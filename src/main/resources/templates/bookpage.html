@@ -13,8 +13,8 @@
     <h3 th:text="${book.authorFirstName} + ' ' + ${book.authorLastName}">Author name</h3>
     <p><h3 th:text="${book.publisher} + ', ' + ${book.publicationYear}">Publisher</h3></p>
 <h3 th:text="'ISBN: ' + ${book.ISBN}">ISBN number</h3>
-<h3 th:if="${borrowerFirstName} or ${borrowerLastName}"
-    th:text="'Aktualnie wypożyczone przez: ' + ${borrowerFirstName} + ' ' + ${borrowerLastName}"></h3>
+<h3 th:if="${borrowerName}"
+    th:text="'Borrowed by: ' + ${borrowerName}"></h3>
 </div>
 <div class="bookpage_opinion_form">
 <form class="set_comment" method="post" th:action="@{/setcommentpost}" th:object="${comment}">
