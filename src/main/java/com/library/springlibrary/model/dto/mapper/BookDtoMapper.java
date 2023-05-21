@@ -13,6 +13,7 @@ public class BookDtoMapper {
         bookDto.setPublisher(book.getPublisher());
         bookDto.setAuthorFirstName(book.getAuthorFirstName());
         bookDto.setAuthorLastName(book.getAuthorLastName());
+        bookDto.setISBN(book.getISBN());
         bookDto.setBorrowerData(book.getBorrower().getUserData());
         bookDto.setCommentaryList(book.getCommentaryList());
         return bookDto;
