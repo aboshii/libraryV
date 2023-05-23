@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 public class BookDto {
+    private Long id;
     @NonNull
     private String title;
     @NonNull

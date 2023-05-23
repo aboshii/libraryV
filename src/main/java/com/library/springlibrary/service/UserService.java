@@ -25,13 +25,25 @@ public class UserService {
     private UserDtoMapper userDtoMapper;
 
     @Transactional
-    public void addUser(UserDto userDto) {
-        User user = new User(
-                userDto.getFirstName(),
-                userDto.getLastName());
+    public UserDto addUser(UserDto userDto) {
+        User user = userDtoMapper.map(userDto);
         userRepository.save(user);
+        return userDtoMapper.map(user);
     }
 
+    public UserDto getUserDtoById(Long id) throws UserNotFoundException {
+        return userDtoMapper.map(userRepository.findById(id)
+                .orElseThrow(UserNotFoundException::new));
+    }
+
+    public User getUserById(Long id) throws UserNotFoundException {
+        return userRepository.findById(id)
+                .orElseThrow(UserNotFoundException::new);
+    }
+    public ArrayList<UserDto> getUsers() {
+        System.out.println("getuserslog");
+        return (ArrayList) userRepository.findAll();
+    }
     @Transactional
     public Optional<Set<BookDto>> getUserBooksByUserId(Long userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
@@ -47,17 +59,12 @@ public class UserService {
         }
     }
 
-    public UserDto getUserDtoById(Long id) throws UserNotFoundException {
-        return userDtoMapper.map(userRepository.findById(id)
-                .orElseThrow(UserNotFoundException::new));
-    }
-    public User getUserById(Long id) throws UserNotFoundException {
-        return userRepository.findById(id)
-                .orElseThrow(UserNotFoundException::new);
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
     }
 
-    public ArrayList<UserDto> getUsers() {
-        System.out.println("getuserslog");
-        return (ArrayList) userRepository.findAll();
+    public void updateUser (UserDto userDto){
+        User user = userDtoMapper.map(userDto);
+        userRepository.save(user);
     }
 }

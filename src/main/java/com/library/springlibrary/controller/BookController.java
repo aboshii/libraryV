@@ -64,7 +64,7 @@ public class BookController {
                             PublicationCommentDto publicationCommentDto) {
         long id = Long.parseLong(UrlHandler.getLastUriSegment(referer, "id"));
         if (!publicationCommentDto.getUsername().equals("") && !publicationCommentDto.getDescription().equals("")) {
-            bookService.addCommentary(id, publicationCommentDto.getUsername(), publicationCommentDto.getDescription());
+            bookService.addComment(id, publicationCommentDto.getUsername(), publicationCommentDto.getDescription());
         }
         else {
             throw new IllegalArgumentException();

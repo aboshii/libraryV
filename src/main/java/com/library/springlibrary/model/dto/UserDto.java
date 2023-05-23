@@ -12,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 public class UserDto {
+    private Long id;
     @NonNull
     private String firstName;
     @NonNull

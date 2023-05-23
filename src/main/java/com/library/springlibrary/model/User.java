@@ -25,7 +25,8 @@ public class User {
     private String firstName;
     @NonNull
     private String lastName;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "borrower", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "borrower", cascade = {CascadeType.PERSIST})
+    //CascadeType.REMOVE
     private Set<Book> borrowedBooks = new HashSet<>();
 
     public String getUserData() {

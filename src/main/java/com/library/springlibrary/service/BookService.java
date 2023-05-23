@@ -21,14 +21,16 @@ public class BookService {
     private BookDtoMapper bookDtoMapper;
 
     @Transactional
-    public void addBook(BookDto bookDto) {
-        Book book = new Book(
-                bookDto.getTitle(),
-                bookDto.getPublicationYear(),
-                bookDto.getPublisher(),
-                bookDto.getAuthorFirstName(),
-                bookDto.getAuthorLastName(),
-                bookDto.getISBN());
+    public BookDto addBook(BookDto bookDto) {
+        Book book = bookDtoMapper.map(bookDto);
+        bookRepository.save(book);
+        return bookDtoMapper.map(book);
+    }
+
+    @Transactional
+    public void addComment(Long id, String username, String opinion) {
+        Book book = getBookById(id);
+        book.getCommentaryList().add(new PublicationComment(username, opinion));
         bookRepository.save(book);
     }
 
@@ -41,19 +43,11 @@ public class BookService {
         }
     }
 
-    @Transactional
-    public void addCommentary(Long id, String username, String opinion) {
-        Book book = getBookById(id);
-        book.getCommentaryList().add(new PublicationComment(username, opinion));
-        bookRepository.save(book);
-    }
-
-    public void removeBookById(Long id) {
-        bookRepository.deleteById(id);
-    }
-
     public Book getBookById(Long id) throws BookNotFoundException {
         return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
+    }
+    public BookDto getBookDtoById(Long id) throws BookNotFoundException {
+        return bookDtoMapper.map(bookRepository.findById(id).orElseThrow(BookNotFoundException::new));
     }
 
     public BookDto getBookByTitle(String title) {
@@ -64,7 +58,23 @@ public class BookService {
     }
 
     public ArrayList<Book> getBooks() {
-        System.out.println("getbookslog");
         return (ArrayList) bookRepository.findAll();
+    }
+
+    public Optional<BookDto> replaceBook(Long id, BookDto bookDto){
+        if (!bookRepository.existsById(id)){
+            return Optional.empty();
+        }
+        bookDto.setId(id);
+        Book book = bookDtoMapper.map(bookDto);
+        Book savedBook = bookRepository.save(book);
+        return Optional.of(bookDtoMapper.map(savedBook));
+    }
+    public void deleteBookById(Long id) {
+        bookRepository.deleteById(id);
+    }
+    public void updateBook (BookDto bookDto) {
+        Book book = bookDtoMapper.map(bookDto);
+        bookRepository.save(book);
     }
 }
