@@ -1,7 +1,6 @@
 package com.library.springlibrary.service;
 
 import com.library.springlibrary.exceptions.UserNotFoundException;
-import com.library.springlibrary.model.Book;
 import com.library.springlibrary.model.dto.BookDto;
 import com.library.springlibrary.model.dto.UserDto;
 import com.library.springlibrary.model.User;
@@ -9,9 +8,12 @@ import com.library.springlibrary.model.dto.mapper.BookDtoMapper;
 import com.library.springlibrary.model.dto.mapper.UserDtoMapper;
 import com.library.springlibrary.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
@@ -23,9 +25,20 @@ public class UserService {
     private UserRepository userRepository;
     private BookDtoMapper bookDtoMapper;
     private UserDtoMapper userDtoMapper;
+    private Validator validator;
 
     @Transactional
     public UserDto addUser(UserDto userDto) {
+        Set<ConstraintViolation<UserDto>> errors = validator.validate(userDto);
+        if (!errors.isEmpty()) {
+            errors.forEach(err -> System.out.printf(
+                    "User cannot be added, caused by: %s %s (%s)\n",
+                    err.getPropertyPath(),
+                    err.getMessage(),
+                    err.getInvalidValue()
+            ));
+            return null;
+        }
         User user = userDtoMapper.map(userDto);
         userRepository.save(user);
         return userDtoMapper.map(user);

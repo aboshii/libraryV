@@ -1,6 +1,12 @@
 spring:
   liquibase:
     change-log: classpath:db/master.xml
+  jpa:
+    properties:
+      javax:
+        persistence:
+          validation:
+            mode: none
 server:
   servlet:
     context-path: /library

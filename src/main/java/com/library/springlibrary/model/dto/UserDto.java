@@ -1,7 +1,6 @@
 package com.library.springlibrary.model.dto;
 
-import com.library.springlibrary.model.Book;
-import com.library.springlibrary.model.User;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.HashSet;
@@ -14,9 +13,11 @@ import java.util.Set;
 public class UserDto {
     private Long id;
     @NonNull
-    private String firstName;
-    @NonNull
+    @Size(min = 3)
     private String lastName;
+    @NonNull
+    @Size(min = 3)
+    private String firstName;
     private Set<BookDto> borrowedBooks = new HashSet<>();
 
 }
