@@ -1,7 +1,15 @@
 spring:
+  security:
+    user:
+      name: admin
+      password: hardToDecode
   liquibase:
     change-log: classpath:db/master.xml
   jpa:
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       javax:
         persistence:
