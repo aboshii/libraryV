@@ -28,4 +28,17 @@ public class BookDto {
     private String ISBN;
     private List<PublicationComment> commentaryList;
 
+    @Override
+    public String toString() {
+        return getClass().getSimpleName()
+                + " {"
+                + "Title:" + this.getTitle()
+                + ", Publication year:" + this.getPublicationYear()
+                + ", Publisher:" + this.getPublisher()
+                + ", Author name:" + this.getAuthorFirstName()
+                + " " + this.getAuthorLastName()
+                + ", ISBN:" + this.getISBN()
+                + "}"
+                ;
+    }
 }

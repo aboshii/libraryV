@@ -13,10 +13,10 @@ import java.util.Set;
 public class UserDto {
     private Long id;
     @NonNull
-    @Size(min = 3)
+    @Size(min = 3, max = 30)
     private String lastName;
     @NonNull
-    @Size(min = 3)
+    @Size(min = 3, max = 30)
     private String firstName;
     private Set<BookDto> borrowedBooks = new HashSet<>();
 

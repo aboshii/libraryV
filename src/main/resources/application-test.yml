@@ -1,18 +1,17 @@
 spring:
-  jpa:
-    show-sql: true
-    hibernate:
-      ddlAuto: validate
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  liquibase:
+    contexts: test
   sql:
     init:
-      mode: embedded #embedded works only with builtin DB, for MySql use #always
-  h2:
-    console:
-      enabled: true
-      path: /h2console
+      mode: embedded
   datasource:
     url: jdbc:h2:mem:test;DATABASE_TO_UPPER=false
     username: admin
     password: admin
+  jpa:
+    show-sql: true
+    hibernate:
+      ddlAuto: none
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl

@@ -6,18 +6,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fge.jsonpatch.JsonPatchException;
 import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
 import com.library.springlibrary.exceptions.UserNotFoundException;
-import com.library.springlibrary.model.User;
 import com.library.springlibrary.model.dto.UserDto;
 import com.library.springlibrary.service.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
@@ -43,7 +47,7 @@ class UserEndpoint {
     }
 
     @PostMapping()
-    ResponseEntity<UserDto> saveUser(@RequestBody UserDto userDto) {
+    ResponseEntity<UserDto> saveUser(@Valid @RequestBody UserDto userDto) {
         UserDto savedUser = userService.addUser(userDto);
         URI savedUserUri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
         return ResponseEntity.created(savedUserUri).body(savedUser);
@@ -74,6 +78,14 @@ class UserEndpoint {
         JsonNode jsonNode = objectMapper.valueToTree(userDtoById);
         JsonNode jsonNodePatched = patch.apply(jsonNode);
         return objectMapper.treeToValue(jsonNodePatched, UserDto.class);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    Map<String, String> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        return ex.getBindingResult().getFieldErrors()
+                .stream()
+                .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
     }
 }
 
