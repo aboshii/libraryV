@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body class="main_header">
 <header class="main_header" th:fragment="common-header">
     <div id="header_outer_div">
         <div class="header_inner_div">
@@ -12,12 +16,20 @@
                 <img class="logo_img" th:src="@{/libraryVlogo.png}"
                      src="../static/libraryVlogo.png" alt="libraryV logo">
             </a>
+            <div class="logininfo">
+                <span>
+                <h3 th:if="${#authentication.isAuthenticated()}" th:text="|Logged as: ${#authentication.name}"></h3>
+                <a th:if="${#authentication.isAuthenticated()}" th:href="@{/logout}"><h3 th:text="|logout|"></h3></a>
+                <a th:unless="${#authentication.isAuthenticated()}" th:href="@{/login}"><h3 th:text="|login|"></h3></a>
+            </span>
+            </div>
         </div>
         <div class="header_inner_div">
             <a th:href="@{/addbook}">
                 <button class="header_button" type="submit">Add new book</button>
             </a>
         </div>
+    </div>
 </header>
 </body>
 </html>

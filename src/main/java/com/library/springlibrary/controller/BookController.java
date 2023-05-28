@@ -8,6 +8,7 @@ import com.library.springlibrary.model.dto.mapper.BookDtoMapper;
 import com.library.springlibrary.service.BookService;
 import com.library.springlibrary.service.VisitCounter;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -17,14 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Controller
 public class BookController {
     private BookService bookService;
-    private VisitCounter visitCounter;
     private BookDtoMapper bookDtoMapper;
-
-    @GetMapping("/")
-    String mainPage(){
-        visitCounter.visitCounterCountUp();
-        return "index";
-    }
 
     @GetMapping("/books/{id}")
     String book(@PathVariable(required = false, name = "id") String id, Model model) {
