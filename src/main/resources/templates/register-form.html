@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel = "stylesheet" th:href = "@{/styles/styles.css}" href="../static/styles/styles.css">
+</head>
+<body class="register_body">
+<!--<header th:replace="~{fragments :: common-header}">-->
+</header>
+    <form class="register-form" method="post">
+        <label><p>username:</p></label>
+        <input name="nickname" placeholder="username" class="form-item">
+        <label><p>password:</p></label>
+        <input name="password" type="password" placeholder="password" class="form-item">
+        <label><p>First name:</p></label>
+        <input name="firstName" placeholder="John" class="form-item">
+        <label><p>Last name:</p></label>
+        <input name="lastName" placeholder="Tolkien" class="form-item">
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>

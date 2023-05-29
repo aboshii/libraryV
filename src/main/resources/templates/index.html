@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>LibraryV</title>
-    <link rel = "stylesheet" th:href = "@{/styles.css}" href="../static/styles.css">
+    <link rel = "stylesheet" th:href = "@{/styles/styles.css}" href="../static/styles/styles.css">
 </head>
 <header th:insert="~{fragments :: common-header}">
     <h1>Hello LibraryV</h1>
 </header>
-<body>
+<body class="index_body">
 <h2 th:text="|Hello ${#authentication.name}. It's your ${@visitCounter.visitCount} visit here|"> </h2>
 <a th:href = "@{/books}">
-    <img id="library_img" th:src = "@{/library1.jpg}"
-         src="../static/library1.jpg" alt = "library photo">
+    <img id="library_img" th:src = "@{/pictures/library1.jpg}"
+         src="../static/pictures/library1.jpg" alt = "library photo">
 </a>
 </body>
 </html>

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="'LibraryV - ' + ${book.title}">LibraryV</title>
-    <link rel="stylesheet" th:href="@{/styles.css}" href="../static/styles.css">
+    <link rel="stylesheet" th:href="@{/styles/styles.css}" href="../static/styles/styles.css">
 </head>
-<body>
+<body class="bookpage_body">
 <header th:replace="~{fragments :: common-header}">
 </header>
 <div class="bookpage_book_details">

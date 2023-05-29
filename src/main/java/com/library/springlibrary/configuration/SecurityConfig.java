@@ -1,13 +1,12 @@
 package com.library.springlibrary.configuration;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -15,11 +14,20 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(request -> request.anyRequest().authenticated());
+        http.authorizeHttpRequests(requests -> requests
+                .requestMatchers("/").permitAll()
+                .requestMatchers("/styles/**").permitAll()
+                .requestMatchers("/pictures/**").permitAll()
+                .requestMatchers("/register").permitAll()
+                .requestMatchers("/confirmation").permitAll()
+                .requestMatchers(PathRequest.toH2Console()).permitAll()
+                .anyRequest().authenticated()
+        );
         http.formLogin(login -> login
                 .loginPage("/login")
                 .usernameParameter("user")
                 .passwordParameter("pass")
+                .successForwardUrl("/library")
                 .permitAll());
         http.logout(logout -> logout
                 .logoutUrl("/logout")
@@ -29,6 +37,12 @@ public class SecurityConfig {
         http.csrf().disable();
         return http.build();
     }
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
 /* //instead of CustimInMemoryUserDetailsManager class
     @Bean
     public UserDetailsService userDetailsService() {

@@ -1,28 +1,25 @@
 package com.library.springlibrary.model.dto;
 
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NonNull;
 
-import java.util.HashSet;
 import java.util.Set;
 
+@AllArgsConstructor
 @Getter
-@Setter
-@NoArgsConstructor(force = true)
-@RequiredArgsConstructor
-public class UserDto {
-    private Long id;
+public class UserRegisterDto {
     @NonNull
     @Size(min = 6, max = 20)
     private String nickname;
     @NonNull
     @Size(min = 6, max = 26)
     private String password;
+    @NonNull
     @Size(min = 3, max = 30)
     private String firstName;
+    @NonNull
     @Size(min = 3, max = 30)
     private String lastName;
-    private Set<String> userRoles;
-    private Set<BookDto> borrowedBooks = new HashSet<>();
-
 }

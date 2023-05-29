@@ -5,10 +5,15 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
 
+    <include file="0001_create_table_books.xml" relativeToChangelogFile="true" context ="dev or prod" />
+    <include file="0002_create_table_users.xml" relativeToChangelogFile="true" />
     <include file="0003_add_table_publication_commentaries.xml" relativeToChangelogFile="true" />
     <include file="0004_modify_table_publication_commentaries.xml" relativeToChangelogFile="true" />
-    <include file="0002_create_table_users.xml" relativeToChangelogFile="true" />
-    <include file="testdata/0002users.sql" relativeToChangelogFile="true" context ="dev or test" />
-    <include file="0001_create_table_books.xml" relativeToChangelogFile="true" context ="dev or prod" />
-    <include file="testdata/0001books.sql" relativeToChangelogFile="true" context="dev" />
+    <include file="0005_modify_table_users_add_nickname.xml" relativeToChangelogFile="true" />
+    <include file="0006_create_table_user_role.xml" relativeToChangelogFile="true" />
+    <include file="0007_modify_table_users_add_password.xml" relativeToChangelogFile="true" />
+    <include file="0008_create_table_users_roles.xml" relativeToChangelogFile="true" />
+    <include file="0009_modify_table_users_modify_password_datatype.xml" relativeToChangelogFile="true" />
+<!--    <include file="testdata/0002users.sql" relativeToChangelogFile="true" context ="dev or test" />-->
+<!--    <include file="testdata/0001books.sql" relativeToChangelogFile="true" context="dev" />-->
 </databaseChangeLog>

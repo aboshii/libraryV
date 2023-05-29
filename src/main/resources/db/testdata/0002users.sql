@@ -1,10 +1,14 @@
 INSERT INTO
-    users(firstName, lastName)
+    users(firstName, lastName, nickname, password)
 values (
         'Michał',
-        'Zgiet'
+        'Zgiet',
+        "aboshii",
+        "testpass"
         ),
         (
         'Mateusz',
-         'Morawiecki'
+         'Morawiecki',
+         "bookthief",
+         "testpass"
         )

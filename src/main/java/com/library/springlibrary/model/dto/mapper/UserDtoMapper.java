@@ -2,6 +2,7 @@ package com.library.springlibrary.model.dto.mapper;
 
 import com.library.springlibrary.model.Book;
 import com.library.springlibrary.model.User;
+import com.library.springlibrary.model.UserRole;
 import com.library.springlibrary.model.dto.BookDto;
 import com.library.springlibrary.model.dto.UserDto;
 import com.library.springlibrary.repository.UserRepository;
