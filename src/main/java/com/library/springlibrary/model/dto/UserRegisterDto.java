@@ -1,5 +1,6 @@
 package com.library.springlibrary.model.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,4 +23,7 @@ public class UserRegisterDto {
     @NonNull
     @Size(min = 3, max = 30)
     private String lastName;
+    @NonNull
+    @Email
+    private String email;
 }

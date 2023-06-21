@@ -7,6 +7,7 @@ import com.library.springlibrary.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.config.annotation.web.SecurityMarker;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;

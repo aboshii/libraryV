@@ -1,6 +1,8 @@
 package com.library.springlibrary.service;
 
+import com.library.springlibrary.exceptions.UserNotFoundException;
 import com.library.springlibrary.model.PublicationComment;
+import com.library.springlibrary.model.dto.PublicationCommentDto;
 import com.library.springlibrary.model.dto.mapper.BookDtoMapper;
 import lombok.AllArgsConstructor;
 import com.library.springlibrary.exceptions.BookNotFoundException;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -33,27 +36,39 @@ public class BookService {
         book.getCommentaryList().add(new PublicationComment(username, opinion));
         bookRepository.save(book);
     }
+    @Transactional
+    public void addComment(Long id, PublicationCommentDto publicationCommentDto) {
+        Book book = getBookById(id);
+        book.getCommentaryList().add
+                (new PublicationComment(publicationCommentDto.getUsername(), publicationCommentDto.getDescription()));
+        bookRepository.save(book);
+    }
 
     @Transactional
     public void borrowBook(Optional<Book> optionalBook, Optional<User> optionalUser) {
         if (optionalBook.isPresent() && optionalUser.isPresent()) {
-            Book book = optionalBook.get();
+            Book book = getBookById(optionalBook.get().getId());
             book.setBorrower(optionalUser.get());
             bookRepository.save(book);
+        } else if (optionalBook.isEmpty()) {
+            throw new BookNotFoundException("Book not found");
+        } else if (optionalUser.isEmpty()) {
+            throw new UserNotFoundException("User not found");
         }
     }
 
     public Book getBookById(Long id) throws BookNotFoundException {
-        return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
+        return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Book not found"));
     }
     public BookDto getBookDtoById(Long id) throws BookNotFoundException {
-        return bookDtoMapper.map(bookRepository.findById(id).orElseThrow(BookNotFoundException::new));
+        return bookDtoMapper.map(bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Book not found")));
     }
 
     public BookDto getBookByTitle(String title) {
         return bookDtoMapper.map(
                 bookRepository
                         .findByTitleIgnoreCase(title)
+                        .stream().findAny()
                         .orElseThrow(BookNotFoundException::new));
     }
 
@@ -70,11 +85,15 @@ public class BookService {
         Book savedBook = bookRepository.save(book);
         return Optional.of(bookDtoMapper.map(savedBook));
     }
+    @Transactional
     public void deleteBookById(Long id) {
         bookRepository.deleteById(id);
     }
     public void updateBook (BookDto bookDto) {
-        Book book = bookDtoMapper.map(bookDto);
-        bookRepository.save(book);
+        Book newBookData = bookDtoMapper.map(bookDto);
+        bookRepository
+                .findById(newBookData.getId())
+                .orElseThrow(() -> new BookNotFoundException("Book not found"));
+        bookRepository.save(newBookData);
     }
 }

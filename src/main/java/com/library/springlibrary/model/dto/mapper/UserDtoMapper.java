@@ -10,6 +10,7 @@ import com.library.springlibrary.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.Role;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ public class UserDtoMapper {
     public UserDto map(User user) {
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());
+        userDto.setNickname(user.getNickname());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setBorrowedBooks(
@@ -34,6 +36,7 @@ public class UserDtoMapper {
     public User map(UserDto userDto){
         User user = new User();
         user.setId(userDto.getId());
+        user.setNickname(userDto.getNickname());
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         return user;

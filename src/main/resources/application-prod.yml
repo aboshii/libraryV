@@ -1,17 +1,19 @@
 spring:
   jpa:
-    show-sql: true
     hibernate:
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      #ddlAuto: validate
+#      ddl-auto: validate;
+      ddlAuto: none
   sql:
     init:
-      mode: always
+      mode: never
+    generate-ddl:
+#      mode: always
   datasource:
-    url: jdbc:mysql://localhost:3306/library
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/library
+    url: jdbc:mysql://localhost:3360/library
     username: root
+#    password: pass123
     password: admin
   liquibase:
     contexts: prod

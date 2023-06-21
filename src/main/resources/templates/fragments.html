@@ -17,11 +17,9 @@
                      src="../static/pictures/libraryVlogo.png" alt="libraryV logo">
             </a>
             <div class="logininfo">
-                <span>
-                <h3 th:if="${#authentication.isAuthenticated()}" th:text="|Logged as: ${#authentication.name}"></h3>
-                <a th:if="${#authentication.isAuthenticated()}" th:href="@{/logout}"><h3 th:text="|logout|"></h3></a>
-                <a th:unless="${#authentication.isAuthenticated()}" th:href="@{/login}"><h3 th:text="|login|"></h3></a>
-            </span>
+                <h3 th:if="${#authentication.isAuthenticated()} and ${#authentication.name} != 'anonymousUser'" th:text="|Logged as: ${#authentication.name}"></h3>
+                <a th:if="${#authentication.isAuthenticated()} and ${#authentication.name} != 'anonymousUser'" th:href="@{/logout}"><h3 th:text="|logout|"></h3></a>
+                <a th:if="${#authentication.isAuthenticated()} and ${#authentication.name} == 'anonymousUser'" th:href="@{/login}"><h3 th:text="|login|"></h3></a>
             </div>
         </div>
         <div class="header_inner_div">

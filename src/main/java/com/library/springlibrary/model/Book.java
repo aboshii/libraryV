@@ -38,4 +38,26 @@ public class Book extends Publication {
                 + "}"
                 ;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Book book = (Book) o;
+
+        if (this.id.equals(book.id) && this.ISBN.equals(book.ISBN)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + id.hashCode();
+        result = 31 * result + ISBN.hashCode();
+        return result;
+    }
 }

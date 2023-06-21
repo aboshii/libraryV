@@ -1,0 +1,82 @@
+Instruction how to build and run app:
+For building via IntelliJ(I've never used any other IDE, that's why I cite JetBrains product),
+there is a possibility to use two profiles:
+1)dev:
+using H2 database
+2)prod:
+using SQL database
+I hardly recommend first option, H2 database is built-in and I hope it is filled with enough data for your needs.
+
+About browser site:
+At the link: localhost:8080/library you can use frontend part application (I'm sorry for poor quality of it,
+I'd love to improve front site with AngularJS/React in the future but for now site is built with Thymeleaf+HTML+CSS)
+
+First of all, only main page is available without login in, to login just press the login button and fill
+fields with data:
+user: aboshii
+password: (SQL)pass1 OR (H2)testpass
+in case of being redirected to '/error' page, just click on book logo in the corner.
+Clicking into bookshelf image will redirect you to book list - from there you can pick a book page site
+by clicking into LINK.
+In above page there are more details about book, also, there is commentary section - if you know any of listed books
+feel free to give us your opinion(however, database is built on your environment so I won't get this opinion, sorry).
+Another functionality available from browser is "Add new book" - it's pretty easy to use so I think no instructions are needed.
+
+For now, that's all about application frontend - in the future I'm going to work more with aplication API
+to build something more functional and... easy on the eye :)
+
+About API:
+on path: \library\src\main\java\com\library\springlibrary\controller\Endpoints
+you can find classes used as API controllers called endpoints.
+I'm working to add more and more API functionalities to application, that's why there is a chance that this file won't have
+all available http requests listed, you can always check endpoint classes content to check full functionality.
+
+Using postman, send login POST request as following:
+http://localhost:8080/library/login?user=aboshii&pass=testpass
+List of requests with type included:
+AdminEndpoint:
+(POST) http://localhost:8080/library/api/admin/borrow?bookId=2&userId=2
+borrow book - required params: Long bookId, Long userId
+Requested response status: 202(accepted)
+Simply changing book(identified by bookId) status to borrowed by user(identified by userId)
+
+BookEndpoint:
+http://localhost:8080/library/api/books/
+(GET) get list of all books
+(POST) add new book - required body example (raw JSON):
+{
+    "title": "Droga Królów",
+    "publicationYear": "2012",
+    "publisher": "Mag",
+    "authorFirstName": "Brandon",
+    "authorLastName": "Sanderson",
+    "isbn": "978-1473213692"
+}
+http://localhost:8080/library/api/books/{id}
+(GET) get book identified by {id}
+(PUT) replace book data with data from request's body
+(PATCH) replace book fields with fields from request's body
+(DELETE) delete book identified by {id}
+
+UserEndpoint:
+add new user - required body example (raw JSON):
+(POST) http://localhost:8080/library/api/users
+{
+    "firstName": "Chad",
+    "lastName": "Yasutora"
+}
+working with user:
+http://localhost:8080/library/api/users/{id}
+(REQUEST) get user
+(DELETE) remove user
+(PATCH) patch user data
+
+register new user - required body example (raw JSON):
+(POST) http://localhost:8080/library/api/users/register
+{
+    "nickname": "Sadooo",
+    "password": "BrazoIzquierdaDelDiablo",
+    "email": "somerandomemail321321321321321@yahoo.com"
+    "firstName": "Chad",
+    "lastName": "Yasutora"
+}

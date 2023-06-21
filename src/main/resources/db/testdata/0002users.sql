@@ -1,14 +1,16 @@
 INSERT INTO
-    users(firstName, lastName, nickname, password)
+    users(firstName, lastName, nickname, password, email)
 values (
         'Michał',
         'Zgiet',
-        "aboshii",
-        "testpass"
+        'aboshii',
+        '{noop}testpass',
+        'zgietmt@gmail.com'
         ),
         (
         'Mateusz',
-         'Morawiecki',
-         "bookthief",
-         "testpass"
+         'Mordak',
+         'bookthief',
+         '{noop}testpass',
+         'randomemail1232312512365@gmail.com'
         )

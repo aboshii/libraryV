@@ -17,7 +17,6 @@ class VisitCounterTest {
     @Test
     void shouldIncrementVisitCounter() {
         //given
-
         //when
         visitCounter.visitCounterCountUp();
 

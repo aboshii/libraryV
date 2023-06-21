@@ -1,9 +1,10 @@
 package com.library.springlibrary.service;
 
 import com.library.springlibrary.exceptions.UserAlreadyExistException;
+import com.library.springlibrary.exceptions.UserCantBeAddedException;
 import com.library.springlibrary.exceptions.UserNotFoundException;
+import com.library.springlibrary.model.Book;
 import com.library.springlibrary.model.UserRole;
-import com.library.springlibrary.model.dto.BookDto;
 import com.library.springlibrary.model.dto.UserCredentialsDto;
 import com.library.springlibrary.model.dto.UserDto;
 import com.library.springlibrary.model.User;
@@ -11,6 +12,7 @@ import com.library.springlibrary.model.dto.UserRegisterDto;
 import com.library.springlibrary.model.dto.mapper.BookDtoMapper;
 import com.library.springlibrary.model.dto.mapper.UserCredentialsDtoMapper;
 import com.library.springlibrary.model.dto.mapper.UserDtoMapper;
+import com.library.springlibrary.model.dto.mapper.UserRegisterDtoMapper;
 import com.library.springlibrary.repository.UserRepository;
 import com.library.springlibrary.repository.UserRoleRepository;
 import lombok.AllArgsConstructor;
@@ -20,10 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.Set;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -34,6 +34,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final BookDtoMapper bookDtoMapper;
     private final UserDtoMapper userDtoMapper;
+    private final UserRegisterDtoMapper userRegisterDtoMapper;
     private final Validator validator;
     private final PasswordEncoder passwordEncoder;
     private final UserRoleRepository userRoleRepository;
@@ -57,7 +58,7 @@ public class UserService {
                     err.getMessage(),
                     err.getInvalidValue()
             ));
-            return true;
+            throw new UserCantBeAddedException("User cannot be added");
         }
         return false;
     }
@@ -70,7 +71,7 @@ public class UserService {
                     err.getMessage(),
                     err.getInvalidValue()
             ));
-            return true;
+            throw new UserCantBeAddedException();
         }
         return false;
     }
@@ -83,11 +84,8 @@ public class UserService {
         if (userRepository.findUserByNickname(userRegisterDto.getNickname()).isPresent()) {
             throw new UserAlreadyExistException();
         }
-        User user = new User();
+        User user = userRegisterDtoMapper.map(userRegisterDto);
         String passwordHashed = passwordEncoder.encode(userRegisterDto.getPassword());
-        user.setNickname(userRegisterDto.getNickname());
-        user.setFirstName(userRegisterDto.getFirstName());
-        user.setLastName(userRegisterDto.getLastName());
         user.setPassword(passwordHashed);
         Optional<UserRole> userRole = userRoleRepository.findByName(USER_ROLE);
         userRole.ifPresentOrElse(
@@ -99,28 +97,32 @@ public class UserService {
         return true;
     }
 
+    public User getUserById(Long id) throws UserNotFoundException {
+        return userRepository.findById(id)
+                .orElseThrow(UserNotFoundException::new);
+    }
+
     public UserDto getUserDtoById(Long id) throws UserNotFoundException {
         return userDtoMapper.map(userRepository.findById(id)
                 .orElseThrow(UserNotFoundException::new));
     }
 
-    public User getUserById(Long id) throws UserNotFoundException {
-        return userRepository.findById(id)
-                .orElseThrow(UserNotFoundException::new);
-    }
-    public ArrayList<UserDto> getUsers() {
-        System.out.println("getuserslog");
+    public ArrayList<User> getUsers() {
         return (ArrayList) userRepository.findAll();
     }
+    public ArrayList<UserDto> getUsersDto() {
+        return (ArrayList<UserDto>) getUsers()
+                .stream()
+                .map(userDtoMapper::map)
+                .collect(Collectors.toList());
+    }
     @Transactional
-    public Optional<Set<BookDto>> getUserBooksByUserId(Long userId) {
+    public Optional<Set<Book>> getUserBooksByUserId(Long userId) {
+        //method returns empty optional if user is not found
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()) {
             User finalUser = optionalUser.get();
-            Set<BookDto> borrowedBooks = finalUser.getBorrowedBooks()
-                    .stream()
-                    .map(bookDtoMapper::map)
-                    .collect(Collectors.toSet());
+            Set<Book> borrowedBooks = new HashSet<>(finalUser.getBorrowedBooks());
             return Optional.of(borrowedBooks);
         } else {
             return Optional.empty();
@@ -131,7 +133,8 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void updateUser (UserDto userDto){
+    public void updateUserData(UserDto userDto) throws UserNotFoundException{
+        getUserById(userDto.getId());
         User user = userDtoMapper.map(userDto);
         userRepository.save(user);
     }

@@ -41,6 +41,8 @@ public class User {
     )
     private Set<UserRole> userRoles = new HashSet<>();
 
+    private String email;
+
     public String getUserData() {
         return getFirstName() + " " + getLastName();
     }

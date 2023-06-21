@@ -4,6 +4,8 @@ import com.library.springlibrary.model.Book;
 import com.library.springlibrary.model.dto.BookDto;
 import org.springframework.stereotype.Service;
 
+import java.time.Year;
+
 @Service
 public class BookDtoMapper {
     public BookDto map(Book book) {
@@ -26,7 +28,12 @@ public class BookDtoMapper {
         Book book = new Book();
         book.setId(bookDto.getId());
         book.setTitle(bookDto.getTitle());
-        book.setPublicationYear(bookDto.getPublicationYear());
+        if (bookDto.getPublicationYear().getValue() <= Year.now().getValue()){
+            book.setPublicationYear(bookDto.getPublicationYear());
+        } else
+        {
+            book.setPublicationYear(Year.of(Year.now().getValue()));
+        }
         book.setPublisher(bookDto.getPublisher());
         book.setAuthorFirstName(bookDto.getAuthorFirstName());
         book.setAuthorLastName(bookDto.getAuthorLastName());

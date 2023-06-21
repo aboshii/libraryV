@@ -2,6 +2,10 @@ spring:
   liquibase:
     change-log: classpath:db/master.xml
   jpa:
+    show-sql: true
+    defer-datasource-initialization: false
+    profiles:
+      default: prod
     hibernate:
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
@@ -11,6 +15,10 @@ spring:
         persistence:
           validation:
             mode: none
+  security:
+    user:
+      name: user
+      password: pass
 server:
   servlet:
     context-path: /library

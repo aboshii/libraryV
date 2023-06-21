@@ -3,8 +3,6 @@ spring:
     show-sql: true
     hibernate:
       ddlAuto: none
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   sql:
     init:
       mode: embedded #embedded works only with builtin DB, for MySql use #always
@@ -13,6 +11,7 @@ spring:
       enabled: true
       path: /h2console
   datasource:
+    driverClassName: org.h2.Driver
     url: jdbc:h2:mem:test;DATABASE_TO_UPPER=false
     username: admin
     password: admin

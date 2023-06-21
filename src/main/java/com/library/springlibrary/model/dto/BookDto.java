@@ -3,6 +3,7 @@ package com.library.springlibrary.model.dto;
 import com.library.springlibrary.model.Book;
 import com.library.springlibrary.model.PublicationComment;
 import lombok.*;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.time.Year;
 import java.util.List;

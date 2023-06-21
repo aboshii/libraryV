@@ -17,7 +17,7 @@ body {
     font-size: small;
 }
 .bookpage_book_details {
-    font-family: "Comic Sans MS", emoji;
+    font-family: "Calibri Light", emoji;
     box-sizing: border-box;
 }
 .bookpage_book_details > h3 {

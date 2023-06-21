@@ -7,6 +7,7 @@ import com.github.fge.jsonpatch.JsonPatchException;
 import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
 import com.library.springlibrary.exceptions.UserNotFoundException;
 import com.library.springlibrary.model.dto.UserDto;
+import com.library.springlibrary.model.dto.UserRegisterDto;
 import com.library.springlibrary.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -32,7 +33,7 @@ class UserEndpoint {
 
     @GetMapping()
     List<UserDto> getBookList() {
-        return userService.getUsers();
+        return userService.getUsersDto();
     }
 
     @RequestMapping("/{id}")
@@ -49,8 +50,20 @@ class UserEndpoint {
     @PostMapping()
     ResponseEntity<UserDto> saveUser(@Valid @RequestBody UserDto userDto) {
         UserDto savedUser = userService.addUser(userDto);
-        URI savedUserUri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
+        URI savedUserUri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedUser.getId()).toUri();
         return ResponseEntity.created(savedUserUri).body(savedUser);
+    }
+    @PostMapping("/register")
+    ResponseEntity<UserDto> registerUser(@Valid @RequestBody UserRegisterDto userRegisterDto) {
+        boolean response = userService.registerUser(userRegisterDto);
+        if (response){
+            return ResponseEntity.accepted().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PatchMapping("/{id}")
@@ -59,7 +72,7 @@ class UserEndpoint {
         try {
             UserDto userDtoById = userService.getUserDtoById(id);
             UserDto userDto = applyPatch(userDtoById, patch);
-            userService.updateUser(userDto);
+            userService.updateUserData(userDto);
         } catch (JsonPatchException | JsonProcessingException E) {
             return ResponseEntity.internalServerError().build();
         } catch (UserNotFoundException e) {

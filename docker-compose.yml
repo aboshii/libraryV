@@ -1,0 +1,21 @@
+services:
+  mysql:
+    image: mysql:8.0.29
+    environment:
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'admin'
+      MYSQL_DATABASE: 'library'
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+  libraryv:
+    build: ./Dockerfile
+    image: libraryv
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    profiles:
+      - prod

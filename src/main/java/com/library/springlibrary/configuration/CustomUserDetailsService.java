@@ -14,7 +14,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     private UserService userService;
-
+    static {
+        User.builder()
+                .username("admin")
+                .password("hardtoguess")
+                .roles("ADMIN")
+                .build();
+    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userService.findCredentialsByNickname(username)

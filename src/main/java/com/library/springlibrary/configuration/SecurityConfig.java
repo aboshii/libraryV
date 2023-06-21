@@ -14,6 +14,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
         http.authorizeHttpRequests(requests -> requests
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/styles/**").permitAll()
@@ -28,13 +30,13 @@ public class SecurityConfig {
                 .usernameParameter("user")
                 .passwordParameter("pass")
                 .successForwardUrl("/library")
+                .failureForwardUrl("/error")
                 .permitAll());
         http.logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout/**", HttpMethod.GET.name()))
                 .permitAll());
-        http.csrf().disable();
         return http.build();
     }
 
